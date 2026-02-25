@@ -2,15 +2,18 @@ package com.bohan.onlineorder.hello;
 
 import net.datafaker.Faker;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
 
     @GetMapping("/hello")
-    public Person getHello() {
+    public Person getHello(@RequestParam(required = false) String name) {
+        if (name == null) {
+            name = "Guest";
+        }
         Faker faker = new Faker();
-        String name = faker.name().fullName();
         String company = faker.company().name();
         String street = faker.address().streetAddress();
         String city = faker.address().city();
